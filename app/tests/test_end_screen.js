@@ -62,7 +62,7 @@ function fixture() {
   const interrupted = fixture();
   vm.runInContext('playbackDuration = 120', interrupted.context);
   await interrupted.movie.events.ended();
-  assert.equal(interrupted.reported.length, 0); assert.equal(interrupted.errors.length, 1);
+  assert.equal(interrupted.reported.length, 1); assert.equal(interrupted.errors.length, 1);
 
   const offline = fixture(); offline.context.fetch = async () => { throw Error('offline'); };
   await offline.movie.events.ended();

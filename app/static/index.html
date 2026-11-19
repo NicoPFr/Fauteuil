@@ -1322,11 +1322,19 @@ function reportProgress({ closing = false, ended = false } = {}) {
     id: activeId, path: activePath, time: movie.currentTime,
     duration: playbackDuration || movie.duration, closing, ended
   });
-  progressRequest = progressRequest.then(() =>
-    fetch('/api/progress', {
-      method: 'POST', headers: { 'Content-Type': 'application/json' }, body
-    })
-  ).catch(() => {});
+  progressRequest = progressRequest.then(async () => {
+    const attempts = closing || ended ? 2 : 1;
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      try {
+        const response = await fetch('/api/progress', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, body,
+          keepalive: closing || ended
+        });
+        if (response.ok) return await response.json();
+      } catch {}
+    }
+    return null;
+  });
   return progressRequest;
 }
 
@@ -1471,9 +1479,16 @@ movie.addEventListener('timeupdate', () => {
 });
 movie.addEventListener('ended', async () => {
   if (!activeId || completionReported) return;
-  if (playbackDuration && movie.currentTime < playbackDuration - 2) {
-    if (!await recoverProgressivePlayback()) showPlayerError('Le téléchargement s’est interrompu avant la fin de la vidéo.');
-    return;
+  const shortStream = playbackDuration && movie.currentTime < playbackDuration - 2;
+  let saved;
+  if (shortStream) {
+    const generation = playerGeneration;
+    saved = await reportProgress({ ended: true });
+    if (generation !== playerGeneration) return;
+    if (!saved?.completed) {
+      if (!await recoverProgressivePlayback()) showPlayerError('Le téléchargement s’est interrompu avant la fin de la vidéo.');
+      return;
+    }
   }
   completionReported = true;
   clearTimeout(playbackPoll);
@@ -1483,7 +1498,7 @@ movie.addEventListener('ended', async () => {
   scheduleNextEpisode(null);
   const revision = endCardRevision;
   const next = lookupNextEpisode();
-  await reportProgress({ ended: true });
+  if (!saved) await reportProgress({ ended: true });
   if (generation !== playerGeneration) return;
   const episode = await next;
   if (generation === playerGeneration && revision === endCardRevision && episode) scheduleNextEpisode(episode);

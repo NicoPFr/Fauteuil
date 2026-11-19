@@ -58,6 +58,8 @@ def remux_stream(info, stage, output):
                 write_state(stage, state)
         if process.wait():
             raise ValueError('Le téléchargement a été interrompu. Vérifie ta connexion.')
+    state['input_complete'] = True
+    write_state(stage, state)
     output.parent.mkdir(parents=True, exist_ok=True)
     partial = output.with_suffix('.part.mp4')
     subprocess.run(['ffmpeg', '-nostdin', '-hide_banner', '-loglevel', 'error', '-y',

@@ -32,6 +32,7 @@ with sqlite3.connect(DB) as c:
  c.execute('create table if not exists playback_profile(profile text,id text,path text,current real,duration real,updated real,primary key(profile,id))')
  c.execute('create table if not exists completed_playback(profile text,id text,finished_at real,primary key(profile,id))')
  c.execute('create table if not exists temporary_downloads(id text primary key,path text,created real)')
+ c.execute('create table if not exists pending_playback_cleanup(id text,path text,primary key(id,path))')
  if 'kept' not in {row[1] for row in c.execute('pragma table_info(temporary_downloads)')}:
   c.execute('alter table temporary_downloads add column kept integer not null default 0')
  c.execute('create table if not exists imported_videos(path text primary key, added_at real)')
@@ -932,6 +933,49 @@ def remove_managed_download(video_id):
  finally:
   with download_lock:active_downloads.pop(video_id,None)
 
+def retry_playback_cleanup(video_id=None):
+ # Keep the request and the catalogue row until the filesystem operation succeeds.
+ with download_lock:
+  root=DATA.resolve()/'À regarder'
+  if root.is_symlink():return
+  condition=' where id=?' if video_id is not None else ''
+  args=(video_id,) if video_id is not None else ()
+  try:
+   with sqlite3.connect(DB) as connection:
+    connection.execute('begin immediate')
+    for ident,filename in connection.execute('select id,path from pending_playback_cleanup'+condition,args).fetchall():
+     if ident in active_downloads:continue
+     row=connection.execute('select kept from temporary_downloads where id=? and path=?',(ident,filename)).fetchone()
+     path=pathlib.Path(filename)
+     if row and not row[0] and root in path.parents and path.resolve()==path:
+      relative=path.relative_to(root).parts
+      try:
+       others=connection.execute('select path from temporary_downloads where id<>? or path<>?',(ident,filename))
+       folder=root/relative[0]
+       other_paths=[pathlib.Path(other[0]).resolve() for other in others]
+       if path in other_paths:
+        continue
+       if (len(relative)>=3 and relative[1]=='Movies' and re.fullmatch(r'[0-9a-f]{16}',relative[0])
+           and not any(folder in other.parents for other in other_paths)):
+        if folder.exists():shutil.rmtree(folder)
+       else:path.unlink(missing_ok=True)
+      except OSError:
+       continue
+      connection.execute('delete from temporary_downloads where id=? and path=? and kept=0',(ident,filename))
+     connection.execute('delete from pending_playback_cleanup where id=? and path=?',(ident,filename))
+  except sqlite3.Error:
+   # The durable request can be retried at the next launch.
+   return
+
+def recover_finished_downloads():
+ # Repair older copies when the history proves they were watched after this download.
+ db("""insert or ignore into pending_playback_cleanup
+       select d.id,d.path from temporary_downloads d
+       where d.kept=0 and exists (select 1 from completed_playback h
+                                  where h.id=d.id and h.finished_at>=d.created)
+       and not exists (select 1 from playback_profile p where p.id=d.id and p.updated>=d.created)""",write=True)
+ retry_playback_cleanup()
+
 def run_download(video_id, keep=False, cancel=None, progressive=False):
  if download_interrupted(cancel):return {'ok':False,'error':'Téléchargement interrompu.'}
  local=local_youtube_file(video_id)
@@ -952,6 +996,7 @@ def run_download(video_id, keep=False, cancel=None, progressive=False):
  finally:
   with download_lock:
    active_downloads.pop(video_id,None)
+  retry_playback_cleanup(video_id)
 
 def progressive_source(video_id, start=0, wait_for_file=False):
  # Repeated clicks join the same job. The request returns after two complete segments.
@@ -966,7 +1011,7 @@ def progressive_source(video_id, start=0, wait_for_file=False):
     return {'ok':False,'error':'Cette vidéo est déjà en préparation pour le hors ligne. Réessaie à la fin du téléchargement.'}
    for old_id,old in list(playback_downloads.items()):
     if old['event'].is_set() and (old['detached'] or not old['result'].get('ok')):playback_downloads.pop(old_id,None)
-   job={'event':threading.Event(),'result':None,'detached':False,'discard':False,'stage':None}
+   job={'event':threading.Event(),'result':None,'detached':False,'stage':None}
    playback_downloads[video_id]=job
    def worker():
     try:
@@ -976,15 +1021,11 @@ def progressive_source(video_id, start=0, wait_for_file=False):
     finally:
      try:
       stage=job['stage']
-      if stage and job['discard']:
-       db('delete from temporary_downloads where id=?',(video_id,),write=True)
-       shutil.rmtree(stage,ignore_errors=True)
-      elif stage and job['detached']:
+      if stage and job['detached']:
        shutil.rmtree(stage/'stream',ignore_errors=True)
      finally:job['event'].set()
    threading.Thread(target=worker,daemon=True).start()
   job['detached']=False
-  job['discard']=False
  try:start=max(0,float(start))
  except (TypeError,ValueError):start=0
  if not math.isfinite(start):start=0
@@ -1684,6 +1725,13 @@ class H(http.server.SimpleHTTPRequestHandler):
     return self.sendj({'ok':False,'error':'Vidéo introuvable.'})
    current=float(d.get('time') or 0)
    duration=float(stream_state['duration'] if stream_state else d.get('duration') or 0)
+   if stream_state and (stream_state.get('input_complete') or stream_state.get('complete')):
+    try:
+     manifest=(stream_job['stage']/'stream/index.m3u8').read_text()
+     if '#EXT-X-ENDLIST' in manifest:
+      actual_duration=sum(float(value) for value in re.findall(r'#EXTINF:([0-9.]+)',manifest))
+      if actual_duration>0:duration=actual_duration
+    except OSError:pass
    if not math.isfinite(current) or not math.isfinite(duration) or current<0 or duration<=0:
     return self.sendj({'ok':False,'error':'Position de lecture invalide.'})
    done=(d.get('ended') is True and (not stream_state or current>=duration-2)) or (d.get('closing') is True and duration-current<30)
@@ -1699,19 +1747,11 @@ class H(http.server.SimpleHTTPRequestHandler):
     if done:
      c.execute('delete from playback_profile where profile=? and id=?',(profile,ident))
      c.execute('insert or replace into completed_playback values(?,?,?)',(profile,ident,time.time()))
-     if remove_temporary:c.execute('delete from temporary_downloads where id=? and path=?',(ident,str(f)))
+     if remove_temporary:c.execute('insert or ignore into pending_playback_cleanup values(?,?)',(ident,str(f)))
     else:c.execute('insert or replace into playback_profile values(?,?,?,?,?,?)',(profile,ident,str(f),current,duration,time.time()))
-   if remove_temporary and stream_job and not stream_job['event'].is_set():
-    stream_job['discard']=True
-    remove_temporary=False
-   if stream_job and stream_job['event'].is_set() and (d.get('closing') is True or done) and not remove_temporary:
+   if remove_temporary:retry_playback_cleanup(ident)
+   elif stream_job and stream_job['event'].is_set() and (d.get('closing') is True or done):
     shutil.rmtree(stream_job['stage']/'stream',ignore_errors=True)
-   if remove_temporary:
-    relative=f.relative_to(temp)
-    job=relative.parts[0]
-    if len(relative.parts)>=3 and relative.parts[1]=='Movies' and re.fullmatch(r'[0-9a-f]{16}',job):
-     shutil.rmtree(temp/job,ignore_errors=True)
-    else:f.unlink(missing_ok=True)
    return self.sendj({'ok':True,'completed':done})
   if route.startswith('/api/playlist'):
    profile=active_profile()
@@ -1788,6 +1828,7 @@ class H(http.server.SimpleHTTPRequestHandler):
   target=(root/(path.lstrip('/') or 'index.html')).resolve()
   return str(target if target.is_relative_to(root) else root/'.not-found')
 def serve():
+ recover_finished_downloads()
  for entry in managed_downloads():
   stage=entry['path'].relative_to(DATA/'À regarder').parts[0]
   if re.fullmatch(r'[0-9a-f]{16}',stage):shutil.rmtree(DATA/'À regarder'/stage/'stream',ignore_errors=True)
