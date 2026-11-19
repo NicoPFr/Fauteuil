@@ -1,0 +1,7 @@
+*{box-sizing:border-box}body{margin:0;background:#101010;color:white;font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.top{padding:20px 5%;background:#080808;color:#e50914;font-weight:900;letter-spacing:2px}main{max-width:1100px;margin:30px auto;padding:20px}.cover{width:100%;height:min(52vh,520px);object-fit:cover;border-radius:8px;background:#222}.muted{color:#bbb;white-space:pre-wrap;line-height:1.65}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}button{border:0;background:#e50914;color:white;padding:14px 20px;border-radius:4px;font-weight:bold;cursor:pointer}button.secondary{background:#444}h1{font-size:clamp(30px,5vw,52px);margin-bottom:6px}#downloadProgress{width:min(420px,100%);display:block;margin:8px 0 20px;accent-color:#e50914}#downloadProgress[hidden]{display:none}#removeDialog{width:min(460px,calc(100vw - 40px));padding:24px;color:#fff;background:#181818;border:1px solid #555;border-radius:8px}
+#removeDialog::backdrop{background:#000b}
+button[hidden]{display:none}
+.cover-frame{height:min(52vh,520px);border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#282028,#191719)}
+.cover-frame .cover{display:block;height:100%;opacity:0;transition:opacity .24s ease}
+.cover-frame .cover.ready{opacity:1}
+@media(prefers-reduced-motion:reduce){.cover-frame .cover{transition:none}}

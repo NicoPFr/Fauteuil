@@ -3,9 +3,9 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf8');
-const functions = html.slice(html.indexOf('const nextEpisodePanel ='), html.indexOf('function showPlayerError'));
-const ended = html.slice(html.indexOf("movie.addEventListener('ended', async"), html.indexOf("document.addEventListener('keydown', event => {\n  if (event.defaultPrevented"));
+const playerSource = fs.readFileSync(path.join(__dirname, '../static/player.js'), 'utf8');
+const functions = playerSource.slice(playerSource.indexOf('const nextEpisodePanel ='), playerSource.indexOf('function showPlayerError'));
+const ended = playerSource.slice(playerSource.indexOf("movie.addEventListener('ended', async"), playerSource.indexOf("document.addEventListener('keydown', event => {\n  if (event.defaultPrevented"));
 function fixture() {
   const elements = new Map();
   const element = selector => {

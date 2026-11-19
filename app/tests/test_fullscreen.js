@@ -3,8 +3,8 @@ const fs = require('node:fs');
 const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, '../static/index.html'), 'utf8');
-const code = html.slice(html.indexOf("const movie = document.querySelector('#movie');"), html.indexOf("player.addEventListener('pointermove'"));
+const playerSource = fs.readFileSync(path.join(__dirname, '../static/player.js'), 'utf8');
+const code = playerSource.slice(playerSource.indexOf("const movie = document.querySelector('#movie');"), playerSource.indexOf("player.addEventListener('pointermove'"));
 
 function fixture({ native = true, bridge = true, rejected = false } = {}) {
   const calls = [];
