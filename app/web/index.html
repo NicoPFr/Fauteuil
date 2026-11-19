@@ -1,0 +1,94 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fauteuil</title><link rel="stylesheet" href="/styles/catalogue.css">
+</head><body><header class="top"><div class="logo" onclick="home()">FAUTEUIL</div><button class="nav active" data-view="all" onclick="home()">Accueil</button><button class="nav" data-view="library" onclick="setView('library')">Mes vidéos</button><button class="nav" data-view="playlists" onclick="setView('playlists')">Playlists</button><button class="nav" data-view="list" onclick="setView('list')">Ma liste</button><button class="nav" data-view="subscriptions" onclick="setView('subscriptions')">Abonnements</button><button class="nav" id="profileButton" onclick="openProfiles()">🍿 Principal</button><button class="nav" id="account" onclick="googleButtonAction()">Compte Google</button><input id="q" placeholder="Titre ou lien YouTube…" aria-label="Rechercher un titre ou un lien YouTube"><button class="search" onclick="search()">Rechercher</button></header><main><section class="hero" id="homeHero" aria-labelledby="featuredTitle">
+  <img id="featuredCover" alt="" hidden>
+  <div class="hero-content">
+    <div id="featuredContext" class="hero-context"></div>
+    <h1 id="featuredTitle">Fauteuil</h1>
+    <p id="featuredMeta">Retrouve tes films, séries et vidéos hors ligne.</p>
+    <a id="featuredLink" class="search" href="#catalogue">Explorer la bibliothèque</a>
+  </div>
+</section><div class="status" id="status">Chargement de votre catalogue…</div><div class="filters" id="catalogueNavigation"><button class="on" data-view="all" onclick="setView('all')">Tout</button><button data-view="catalogue" onclick="setView('catalogue')">Catalogue</button><button data-view="films" onclick="setView('films')">Films</button><button data-view="series" onclick="setView('series')">Séries</button><button data-view="list" onclick="setView('list')">Ma liste</button><button data-view="offline" onclick="setView('offline')">Hors ligne</button><button data-view="history" onclick="setView('history')">Historique</button><button type="button" onclick="chooseLocalVideos()">Ajouter des vidéos</button><button type="button" onclick="openImports()">Fichiers ajoutés</button><button type="button" onclick="openStorage()">Stockage</button></div><section class="rail" id="browseTopics"><h2>Explorer par thème</h2><div class="filters"><button onclick="category('cinéma français film')">Cinéma</button><button onclick="category('documentaire science nature')">Documentaires</button><button onclick="category('animation film')">Animation</button><button onclick="category('jeux vidéo gaming')">Jeux vidéo</button><button onclick="category('musique live concert')">Musique</button><button onclick="category('sport highlights')">Sport</button></div></section><section id="tripStatus" class="rail" hidden aria-labelledby="tripStatusTitle">
+  <h2 id="tripStatusTitle">Téléchargements</h2>
+  <ul id="tripJobs"></ul>
+  <button id="cancelTrip" class="nav" type="button" hidden>Annuler les téléchargements</button>
+</section><form id="catalogueFilters" hidden aria-label="Filtrer le catalogue">
+  <label>Genre <select id="catalogueGenre"><option value="">Tous</option></select></label>
+  <label>Disponibilité <select id="catalogueAvailability">
+    <option value="">Toutes</option><option value="offline">Disponible hors ligne</option>
+    <option value="online">À télécharger</option>
+  </select></label>
+  <label>Durée <select id="catalogueDuration">
+    <option value="">Toutes</option><option value="short">Moins de 20 min</option>
+    <option value="medium">20 à 59 min</option><option value="long">1 h ou plus</option>
+  </select></label>
+</form>
+<section id="personalLibrary" hidden aria-labelledby="personalLibraryTitle">
+  <h1 id="personalLibraryTitle">Mes vidéos</h1>
+  <div class="filters">
+    <input type="search" id="personalSearch" aria-label="Filtrer mes vidéos" placeholder="Titre, série ou chaîne…">
+    <button type="button" onclick="setView('series')">Séries</button>
+    <button type="button" onclick="setView('offline')">Hors ligne</button>
+    <button type="button" onclick="setView('history')">Historique</button>
+    <button type="button" onclick="chooseLocalVideos()">Ajouter des vidéos</button>
+  </div>
+</section><div id="catalogue"></div></main>
+<dialog id="tripPicker" aria-labelledby="tripTitle">
+  <h2 id="tripTitle">Télécharger des vidéos</h2>
+  <p class="status">Choisis jusqu’à 20 vidéos de Ma liste à conserver hors ligne.</p>
+  <form id="tripForm">
+    <div id="tripOptions"></div>
+    <p id="tripMessage" role="status" class="status"></p>
+    <button id="tripSubmit" class="search" type="submit">Télécharger la sélection</button>
+    <button class="nav" type="button" onclick="document.querySelector('#tripPicker').close()">Fermer</button>
+  </form>
+</dialog><div class="modal" id="profiles"><div class="panel"><h2>Profils</h2><div id="profileList" class="profileList"></div><input id="newProfile" placeholder="Nom du nouveau profil"><button class="search" onclick="createProfile()">Créer un profil</button><button class="nav" onclick="closeProfiles()">Fermer</button></div></div><div class="modal" id="settings" role="dialog" aria-modal="true" aria-labelledby="googleTitle">
+  <div class="panel">
+    <h2 id="googleTitle">Compte Google</h2>
+    <p id="googleSetupHelp">Connecte ton compte pour retrouver tes abonnements YouTube dans Fauteuil.</p>
+    <div id="googleSetup" hidden>
+      <p>Google demande d’enregistrer Fauteuil une fois avant de pouvoir connecter ton compte.</p>
+      <ol>
+        <li><button class="nav" type="button" onclick="openGoogleSetup('api')">Ouvrir YouTube Data API</button> et cliquer sur <strong>Activer</strong> dans ton projet Google Cloud.</li>
+        <li><button class="nav" type="button" onclick="openGoogleSetup('branding')">Configurer Fauteuil</button> en choisissant <strong>Externe</strong>, puis ajouter ton adresse Google aux utilisateurs test dans <button class="nav" type="button" onclick="openGoogleSetup('audience')">Audience</button>.</li>
+        <li><button class="nav" type="button" onclick="openGoogleSetup('client')">Créer un client Google</button> de type <strong>Application de bureau</strong>, puis choisir <strong>Télécharger le fichier JSON</strong>.</li>
+      </ol>
+      <input id="googleFile" type="file" accept=".json,application/json" hidden>
+      <button id="googleImport" class="search" type="button">Importer le fichier Google et se connecter</button>
+    </div>
+    <div class="buttons">
+      <button id="googleConnect" class="search" type="button" onclick="connectGoogle()" hidden>Se connecter avec Google</button>
+      <button id="googleDisconnect" class="nav" type="button" onclick="disconnectGoogle()" hidden>Déconnecter</button>
+      <button class="nav" type="button" onclick="closeSettings()">Fermer</button>
+    </div>
+    <p id="googleStatus" class="status" role="status"></p>
+  </div>
+</div><dialog id="importsPanel" aria-labelledby="importsTitle">
+  <h2 id="importsTitle">Fichiers ajoutés</h2>
+  <p class="status">Retirer une référence laisse le fichier d’origine à sa place.</p>
+  <p id="importsMessage" class="status" role="status"></p>
+  <ul id="importsList"></ul>
+  <form method="dialog"><button class="nav">Fermer</button></form>
+</dialog>
+<dialog id="storagePanel" aria-labelledby="storageTitle">
+  <h2 id="storageTitle">Stockage de Fauteuil</h2>
+  <p id="storageStatus" class="status" role="status"></p>
+  <dl id="storageMetrics"></dl>
+  <button id="cleanCovers" class="nav" type="button" onclick="cleanUnusedCovers()" hidden>Nettoyer les jaquettes inutilisées</button>
+  <p id="storageCleanupMessage" class="status" role="status"></p>
+  <form method="dialog"><button class="nav">Fermer</button></form>
+</dialog><div class="player" id="player"><video id="movie" controls autoplay playsinline tabindex="0"></video><div id="playerError" role="alert" hidden></div><div id="bufferStatus" role="status" hidden></div><section id="nextEpisode" hidden aria-labelledby="nextEpisodeTitle">
+  <div class="panel"><img id="nextEpisodeCover" alt="" hidden><h2 id="nextEpisodeTitle">Lecture terminée</h2>
+  <p id="nextEpisodeName"></p><p id="nextEpisodeCountdown"></p>
+  <div class="actions"><button type="button" class="search" id="playNext" hidden>Épisode suivant</button>
+  <button type="button" class="nav" id="cancelNext" hidden>Annuler l’enchaînement</button>
+  <button type="button" class="nav" id="replayVideo">Revoir</button>
+  <button type="button" class="nav" id="stopAfterEpisode">Retour au catalogue</button></div>
+  <label class="end-autoplay" id="autoplayLabel" hidden><input type="checkbox" id="autoplayNext">Enchaîner les épisodes automatiquement</label>
+  <div id="endSuggestions" aria-label="À regarder ensuite"></div></div>
+</section><div class="player-tools">
+  <button class="close" type="button" onclick="closePlayer()" aria-label="Revenir à la fiche vidéo">×</button>
+</div></div><script src="/scripts/playlists.js"></script>
+<script src="/scripts/catalogue.js"></script>
+<script src="/scripts/player.js"></script>
+<script src="/scripts/main.js"></script>
+</body></html>

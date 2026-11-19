@@ -3,7 +3,11 @@
 import os
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+APP_ROOT = Path(__file__).resolve().parents[1]
+WEB_ROOT = APP_ROOT / "web"
+DOWNLOADER_SCRIPT = APP_ROOT / "downloader" / "ytmp4.sh"
+if not DOWNLOADER_SCRIPT.is_file():
+    DOWNLOADER_SCRIPT = APP_ROOT.parent / "ytmp4.sh"
 MOVIES = Path(
     os.environ.get("CINEMA_MOVIES_DIR", Path.home() / "Movies/Youtube/Movies")
 )

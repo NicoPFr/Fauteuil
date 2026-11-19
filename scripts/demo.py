@@ -48,7 +48,7 @@ class Demo(http.server.SimpleHTTPRequestHandler):
 
     def translate_path(self, path):
         path=urllib.parse.unquote(urllib.parse.urlparse(path).path)
-        root=ROOT/'docs/assets/demo' if path.startswith('/demo-assets/') else ROOT/'app/static'
+        root=ROOT/'docs/assets/demo' if path.startswith('/demo-assets/') else ROOT/'app/web'
         relative=path.removeprefix('/demo-assets/') if path.startswith('/demo-assets/') else path.lstrip('/') or 'index.html'
         target=(root/relative).resolve()
         return str(target if target.is_relative_to(root.resolve()) else root/'.not-found')
