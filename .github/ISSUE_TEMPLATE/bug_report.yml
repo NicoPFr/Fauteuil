@@ -1,0 +1,21 @@
+name: Bug report
+description: Help improve Fauteuil with a reproducible report.
+title: '[Bug]: '
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include what you expected, what happened and steps to reproduce.
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: macOS and Fauteuil versions
+      placeholder: macOS 15, Fauteuil 1.2
+  - type: textarea
+    id: details
+    attributes:
+      label: Useful details
+      description: Include media format or a public YouTube URL if relevant. Never post OAuth files, tokens, private playlists or personal paths.
