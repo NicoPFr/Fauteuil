@@ -2,7 +2,7 @@
 
 Fauteuil brings local movies, TV episodes and YouTube playlists into a personal media library on your Mac. Watch in the built-in player, resume where you left off and keep selected videos for offline playback.
 
-[**Download Fauteuil for macOS**](https://github.com/NicoPFr/Fauteuil/releases/latest) · [Documentation en français](../README.md)
+[**Download Fauteuil for macOS**](https://github.com/NicoPFr/Fauteuil/releases/latest) · [Fauteuil website](https://nicopfr.github.io/Fauteuil/en/) · [Documentation en français](../README.md)
 
 ![Fauteuil’s macOS video library with fictional movies and series](assets/home.jpg)
 

@@ -3,6 +3,7 @@
 Fauteuil rassemble les vidéos d’un Mac et les playlists YouTube dans une médiathèque personnelle. On retrouve ses séries, on reprend là où on s’était arrêté et on garde les vidéos de son choix pour le hors ligne.
 
 - [Dépôt public](https://github.com/NicoPFr/Fauteuil)
+- [Site de Fauteuil](https://nicopfr.github.io/Fauteuil/)
 - [Version pour macOS](https://github.com/NicoPFr/Fauteuil/releases/latest)
 - [Icône](../assets/icon.png)
 - [Capture de l’accueil](../assets/home.jpg)

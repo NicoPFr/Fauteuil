@@ -4,7 +4,7 @@
 
 Fauteuil rassemble **tes vidéos locales et tes playlists YouTube** dans une médiathèque personnelle sur Mac. Regarde tes vidéos dans l’application, reprends au dernier arrêt et garde une sélection pour le hors ligne.
 
-[**Télécharger Fauteuil pour macOS**](https://github.com/NicoPFr/Fauteuil/releases/latest) · [Guide Google](docs/CONFIGURER_GOOGLE.md) · [English](docs/README.en.md)
+[**Télécharger Fauteuil pour macOS**](https://github.com/NicoPFr/Fauteuil/releases/latest) · [Site de Fauteuil](https://nicopfr.github.io/Fauteuil/) · [Guide Google](docs/CONFIGURER_GOOGLE.md) · [English](docs/README.en.md)
 
 > **macOS 15 ou ultérieur**, Apple Silicon et Intel. La lecture de fichiers locaux est disponible sans compte Google.
 
