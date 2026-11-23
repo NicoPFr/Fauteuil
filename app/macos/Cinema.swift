@@ -9,6 +9,8 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
     private var webView: WKWebView!
     private var clipboardShortcutsMonitor: Any?
     private var server: Process?
+    private var installer: Process?
+    private var setupWindow: NSWindow?
     private var instanceLock: Int32 = -1
     private var terminationPending = false
     private var choosingVideos = false
@@ -27,23 +29,120 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
             NSApp.terminate(nil)
             return
         }
-        let resources = Bundle.main.resourceURL!
-        let candidates = ["/opt/homebrew/bin/python3", "/usr/local/bin/python3",
-                          "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3", "/usr/bin/python3"]
-        guard let python = candidates.first(where: { FileManager.default.isExecutableFile(atPath: $0) }) else {
-            let alert = NSAlert()
-            alert.messageText = "Python 3 est nécessaire"
-            alert.informativeText = "Installe Python 3, FFmpeg et yt-dlp comme indiqué dans le guide de Fauteuil."
-            alert.runModal()
+        guard let resources = Bundle.main.resourceURL,
+              let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
+            showSetupFailure("Fauteuil ne trouve pas son dossier de travail.")
+            return
+        }
+        #if arch(arm64)
+        let architecture = "arm64"
+        #else
+        let architecture = "x86_64"
+        #endif
+        let runtime = support.appendingPathComponent("Fauteuil/runtime-v1-\(architecture)", isDirectory: true)
+        if runtimeIsReady(runtime) {
+            launchServer(resources: resources, runtime: runtime)
+        } else {
+            prepareRuntime(resources: resources, runtime: runtime, architecture: architecture)
+        }
+    }
+
+    private func runtimeIsReady(_ runtime: URL) -> Bool {
+        ["python3", "yt-dlp", "deno", "ffmpeg", "ffprobe"].allSatisfy {
+            FileManager.default.isExecutableFile(atPath: runtime.appendingPathComponent("bin/\($0)").path)
+        }
+    }
+
+    private func prepareRuntime(resources: URL, runtime: URL, architecture: String) {
+        let prompt = NSAlert()
+        prompt.messageText = "Préparer Fauteuil"
+        prompt.informativeText = "Au premier lancement, Fauteuil télécharge ses outils de lecture et de téléchargement (environ 145 Mo). Ils restent dans ton dossier utilisateur. Une connexion Internet est nécessaire pour cette étape."
+        prompt.addButton(withTitle: "Installer les outils")
+        prompt.addButton(withTitle: "Quitter")
+        guard prompt.runModal() == .alertFirstButtonReturn else {
             NSApp.terminate(nil)
             return
         }
+
+        let panel = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 440, height: 115),
+                             styleMask: [.titled], backing: .buffered, defer: false)
+        panel.title = "Préparation de Fauteuil"
+        let content = NSView(frame: panel.contentRect(forFrameRect: panel.frame))
+        let indicator = NSProgressIndicator(frame: NSRect(x: 24, y: 41, width: 28, height: 28))
+        indicator.style = .spinning
+        indicator.startAnimation(nil)
+        let label = NSTextField(wrappingLabelWithString: "Téléchargement et vérification des outils…")
+        label.frame = NSRect(x: 68, y: 39, width: 344, height: 32)
+        content.addSubview(indicator)
+        content.addSubview(label)
+        panel.contentView = content
+        panel.center()
+        panel.makeKeyAndOrderFront(nil)
+        setupWindow = panel
+
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/bin/bash")
+        task.arguments = [resources.appendingPathComponent("install-runtime.sh").path, runtime.path, architecture]
+        // Use the Mac's system commands while installing. No shell profile or Homebrew is needed.
+        var environment = ProcessInfo.processInfo.environment
+        environment["PATH"] = "/usr/bin:/bin:/usr/sbin:/sbin"
+        environment.removeValue(forKey: "BASH_ENV")
+        task.environment = environment
+        let progress = Pipe()
+        task.standardOutput = progress
+        task.standardError = FileHandle.nullDevice
+        progress.fileHandleForReading.readabilityHandler = { handle in
+            let bytes = handle.availableData
+            guard !bytes.isEmpty, let line = String(decoding: bytes, as: UTF8.self).split(whereSeparator: \.isNewline).last else { return }
+            Task { @MainActor in label.stringValue = String(line) }
+        }
+        task.terminationHandler = { [weak self] child in
+            progress.fileHandleForReading.readabilityHandler = nil
+            Task { @MainActor in
+                guard let self else { return }
+                self.installer = nil
+                self.setupWindow?.orderOut(nil)
+                self.setupWindow = nil
+                if child.terminationStatus == 0, self.runtimeIsReady(runtime) {
+                    self.launchServer(resources: resources, runtime: runtime)
+                } else {
+                    self.showSetupFailure("Fauteuil n’a pas pu télécharger ou vérifier ses outils. Vérifie ta connexion à GitHub, puis relance Fauteuil.")
+                }
+            }
+        }
+        do {
+            installer = task
+            try task.run()
+        } catch {
+            progress.fileHandleForReading.readabilityHandler = nil
+            installer = nil
+            setupWindow?.orderOut(nil)
+            setupWindow = nil
+            showSetupFailure("Fauteuil n’a pas pu lancer l’installation de ses outils.")
+        }
+    }
+
+    private func showSetupFailure(_ message: String) {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = "Préparation impossible"
+        alert.informativeText = message
+        alert.addButton(withTitle: "Quitter")
+        alert.runModal()
+        NSApp.terminate(nil)
+    }
+
+    private func launchServer(resources: URL, runtime: URL) {
         let process = Process()
-        process.executableURL = URL(fileURLWithPath: python)
+        process.executableURL = runtime.appendingPathComponent("bin/python3")
         process.arguments = ["-m", "fauteuil"]
         process.currentDirectoryURL = resources
         var environment = ProcessInfo.processInfo.environment
         environment["CINEMA_IMPORT_TOKEN"] = importToken
+        environment["FAUTEUIL_RUNTIME"] = runtime.path
+        environment.removeValue(forKey: "PYTHONHOME")
+        environment.removeValue(forKey: "PYTHONPATH")
+        environment.removeValue(forKey: "BASH_ENV")
         environment["PYTHONDONTWRITEBYTECODE"] = "1"
         process.environment = environment
         process.standardOutput = FileHandle.nullDevice
@@ -390,6 +489,7 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
 
     func applicationWillTerminate(_ notification: Notification) {
         if let clipboardShortcutsMonitor { NSEvent.removeMonitor(clipboardShortcutsMonitor) }
+        if let installer, installer.isRunning { installer.terminate() }
         if let server, server.isRunning {
             server.terminate()
         }

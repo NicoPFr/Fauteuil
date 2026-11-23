@@ -20,16 +20,18 @@
 
 ## Installation
 
-1. Télécharge l’archive universelle dans les [releases GitHub](https://github.com/NicoPFr/Fauteuil/releases/latest), décompresse-la et ouvre **Fauteuil.app**. La compilation cible macOS 13 ou ultérieur, pour Apple Silicon et Intel. La release utilise une signature ad hoc et n’est pas notariée. Si macOS bloque son ouverture, la compilation locale est l’autre option.
-2. Installe les dépendances avec [Homebrew](https://brew.sh/) via `brew install python ffmpeg yt-dlp deno`. Pour résoudre les changements côté YouTube, garde [yt-dlp et son moteur JavaScript](https://github.com/yt-dlp/yt-dlp#dependencies) à jour.
-3. Dans **Mes vidéos**, utilise **Ajouter des vidéos**, ou range tes fichiers dans `~/Movies/Youtube/Movies`. La lecture des fichiers locaux fonctionne sans compte.
+1. Télécharge l’archive universelle dans les [releases GitHub](https://github.com/NicoPFr/Fauteuil/releases/latest), décompresse-la et ouvre **Fauteuil.app**. La version 1.4 cible macOS 15 ou ultérieur, sur Apple Silicon et Intel. Pour macOS 13 ou 14, utilise la [1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1).
+2. Au premier lancement, clique sur **Installer les outils**. Fauteuil télécharge et vérifie ses dépendances dans ton dossier utilisateur. Prévois une connexion à GitHub et environ 145 Mo de téléchargement. Aucun passage par Homebrew ou le Terminal.
+3. Dans **Mes vidéos**, utilise **Ajouter des vidéos**, ou range tes fichiers dans `~/Movies/Youtube/Movies`. La lecture des fichiers locaux fonctionne hors connexion après la préparation et sans compte Google.
 4. Pour les abonnements et les playlists personnelles, suis le [guide Google](docs/CONFIGURER_GOOGLE.md). Chaque installation utilise son propre client OAuth.
+
+La release est signée ad hoc. macOS peut demander une confirmation dans **Réglages Système → Confidentialité et sécurité** au premier lancement, car Apple n’a pas notarié ce paquet. [Documentation Apple](https://support.apple.com/fr-fr/102445) · [Détails des outils téléchargés](docs/RUNTIME.md).
 
 YouTube peut limiter la disponibilité de certains contenus et formats. Télécharge uniquement les vidéos que tu es autorisé à enregistrer.
 
 ## Compiler et tester
 
-Avec les outils en ligne de commande Xcode, Python 3.11 ou ultérieur et les dépendances ci-dessus, lance `make build` et ouvre `build/Fauteuil.app`. Utilise `make universal` pour compiler les deux architectures et `make test` avec Node.js pour les tests locaux. `python3 scripts/demo.py` sert l’interface avec une bibliothèque fictive sur le port 8767.
+Avec les outils en ligne de commande Xcode et Python 3.11 ou ultérieur, lance `make build` et ouvre `build/Fauteuil.app`. Utilise `make universal` pour compiler les deux architectures et `make test` avec Node.js pour les tests locaux. `python3 scripts/demo.py` sert l’interface avec une bibliothèque fictive sur le port 8767.
 
 Fauteuil utilise Swift, AppKit et WebKit pour la fenêtre et le lecteur, puis Python et SQLite pour le catalogue local. Les préférences et métadonnées restent sur le Mac. Les jetons durables sont stockés dans le trousseau. Projet indépendant, sous [licence MIT](LICENSE).
 

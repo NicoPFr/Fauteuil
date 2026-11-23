@@ -20,6 +20,9 @@ DOWNLOAD_ROOT = DATA / "À regarder"
 
 
 def configure_tools():
+    if runtime := os.environ.get("FAUTEUIL_RUNTIME"):
+        os.environ["PATH"] = os.pathsep.join((str(Path(runtime) / "bin"), "/usr/bin:/bin:/usr/sbin:/sbin"))
+        return
     locations = (
         "/Library/Frameworks/Python.framework/Versions/3.13/bin",
         "/opt/homebrew/bin",

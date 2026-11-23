@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+if [[ -n "${FAUTEUIL_RUNTIME:-}" ]]; then
+  export PATH="$FAUTEUIL_RUNTIME/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+else
+  export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+fi
 if [[ "${1:-}" == --cinema-check-space ]]; then
   shift
   exec python3 - "$@" <<'PYTHON'

@@ -7,7 +7,7 @@ permissions:
   contents: read
 jobs:
   macos:
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,8 +21,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Install media tools
-        run: brew install ffmpeg yt-dlp
+      - name: Verify the first-run runtime installer
+        run: |
+          runtime="$RUNNER_TEMP/fauteuil-runtime"
+          env -i HOME="$HOME" PATH=/usr/bin:/bin /bin/bash scripts/install-runtime.sh "$runtime"
+          echo "$runtime/bin" >> "$GITHUB_PATH"
       - name: Test
         run: make test
       - name: Build universal app

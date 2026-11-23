@@ -24,14 +24,15 @@ mkdir -p "$APP/Contents/MacOS" "$RESOURCES/downloader"
 if [[ "$ARCH" == universal ]]; then
   SDK="$(xcrun --sdk macosx --show-sdk-path)"
   for target in arm64 x86_64; do
-    swiftc -parse-as-library -O -sdk "$SDK" -target "$target-apple-macos13.0" -framework AppKit -framework WebKit "$ROOT/app/macos/Cinema.swift" -o "$WORK/Cinema-$target"
+    swiftc -parse-as-library -O -sdk "$SDK" -target "$target-apple-macos15.0" -framework AppKit -framework WebKit "$ROOT/app/macos/Cinema.swift" -o "$WORK/Cinema-$target"
   done
   lipo -create "$WORK/Cinema-arm64" "$WORK/Cinema-x86_64" -output "$WORK/Cinema"
 else
-  swiftc -parse-as-library -O -target "$(uname -m)-apple-macos13.0" -framework AppKit -framework WebKit "$ROOT/app/macos/Cinema.swift" -o "$WORK/Cinema"
+  swiftc -parse-as-library -O -target "$(uname -m)-apple-macos15.0" -framework AppKit -framework WebKit "$ROOT/app/macos/Cinema.swift" -o "$WORK/Cinema"
 fi
 cp "$WORK/Cinema" "$APP/Contents/MacOS/Cinema"
 cp "$ROOT/app/macos/Info.plist" "$APP/Contents/Info.plist"
+cp "$ROOT/scripts/install-runtime.sh" "$RESOURCES/install-runtime.sh"
 cp "$ROOT/ytmp4.sh" "$ROOT/ytmp4-page.py" "$ROOT/ytmp4-stream.py" "$RESOURCES/downloader/"
 (
   cd "$ROOT/app"
@@ -54,4 +55,4 @@ if [[ -e "$DESTINATION" ]]; then
   mv "$DESTINATION" "$PREVIOUS"
 fi
 mv "$APP" "$DESTINATION"
-echo "Built $DESTINATION ($ARCH, macOS 13+)"
+echo "Built $DESTINATION ($ARCH, macOS 15+)"

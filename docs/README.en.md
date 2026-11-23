@@ -11,7 +11,7 @@ A personal video library for macOS. Browse local files and YouTube playlists, pl
 - Start playback while supported videos download. Fauteuil falls back to a temporary local copy when progressive playback fails.
 - Keep a selection offline or let Fauteuil clean up completed temporary downloads.
 
-The universal build targets macOS 13+, Apple Silicon and Intel. GitHub release builds are ad hoc signed and are not notarized. Install the runtime dependencies with `brew install python ffmpeg yt-dlp deno`. To build locally, install Xcode Command Line Tools and run `make build`. The app interface is currently in French.
+The 1.4 universal build targets macOS 15+, Apple Silicon and Intel. On first launch, **Installer les outils** downloads and verifies the private runtime from GitHub. It requires an internet connection for setup, around 145 MB of downloads, and no Homebrew or Terminal. The app interface is in French. GitHub release builds are ad hoc signed and are not notarized. For macOS 13 or 14, use [1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1).
 
 Local playback needs no account. YouTube subscriptions and personal playlists use a user-provided OAuth client. See the [Google setup guide in French](CONFIGURER_GOOGLE.md). Download only content you have permission to save.
 
