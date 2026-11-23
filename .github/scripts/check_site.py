@@ -2,6 +2,7 @@
 
 import argparse
 from collections import deque
+from datetime import date, datetime
 from html.parser import HTMLParser
 import json
 from pathlib import Path
@@ -15,6 +16,8 @@ ROOT = Path(__file__).resolve().parents[2]
 SITE = "https://nicopfr.github.io/Fauteuil/"
 LANGUAGES = {"fr", "en", "x-default"}
 NS = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9", "x": "http://www.w3.org/1999/xhtml"}
+IMAGE = "http://www.google.com/schemas/sitemap-image/1.1"
+ATOM = "http://www.w3.org/2005/Atom"
 MAX_ASSET_BYTES = 160 * 1024
 
 
@@ -92,6 +95,7 @@ def check(live):
                 if document not in pages:
                     assets.add(document)
     visit_navigation(reachable)
+    check_discovery(sitemap, pages, assets, live)
 
     page404 = Page((ROOT / "404.html").read_text(encoding="utf-8"))
     require(any("noindex" in meta["content"] for meta in page404.select("meta", name="robots")),
@@ -103,6 +107,35 @@ def check(live):
         for url in sorted(assets):
             subprocess.run(["curl", "-qfsS", "--max-time", "20", "-o", "/dev/null", url], check=True)
     print(f"{len(pages)} pages, {len(assets)} linked assets and a {size:,}-byte asset budget verified.")
+
+
+def check_discovery(sitemap, pages, assets, live):
+    for row in sitemap.findall("s:url", NS):
+        url = row.findtext("s:loc", namespaces=NS)
+        stamps = row.findall("s:lastmod", NS)
+        require(len(stamps) == 1 and date.fromisoformat(stamps[0].text), url, "missing modification date")
+        for image in row.findall(f".//{{{IMAGE}}}loc"):
+            target = image.text
+            require(target.startswith(SITE) and local_target(target).is_file(), url, "missing screenshot")
+            assets.add(target)
+
+    atom = {"atom": ATOM}
+    for lang, home in (("fr", SITE), ("en", SITE + "en/")):
+        links = pages[home].select("link", rel="alternate", type="application/atom+xml")
+        require(len(links) == 1, home, "missing Atom feed link")
+        url = urljoin(home, links[0]["href"])
+        feed = ET.fromstring(load(url, live))
+        require(feed.tag == f"{{{ATOM}}}feed" and feed.findtext("atom:id", namespaces=atom) == url,
+                url, "unexpected feed identifier")
+        require(any(link.attrib == {"rel": "self", "href": url} for link in feed.findall("atom:link", atom)),
+                url, "missing feed self link")
+        items = feed.findall("atom:entry", atom)
+        entries = {entry.findtext("atom:id", namespaces=atom) for entry in items}
+        expected = {url for url, page in pages.items() if page.select("html")[0]["lang"] == lang and url != home}
+        require(entries == expected and len(items) == len(entries), url, "feed entries differ from the site")
+        updates = [datetime.fromisoformat(item.findtext("atom:updated", namespaces=atom)) for item in items]
+        require(updates and datetime.fromisoformat(feed.findtext("atom:updated", namespaces=atom)) == max(updates),
+                url, "incorrect feed update date")
 
 
 def check_page(url, page, text, pairs, titles, descriptions):

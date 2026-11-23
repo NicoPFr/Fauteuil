@@ -1,85 +1,111 @@
 <?xml version='1.0' encoding='utf-8'?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/" />
+    <image:image>
+      <image:loc>https://nicopfr.github.io/Fauteuil/assets/bibliotheque.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nicopfr.github.io/Fauteuil/assets/playlists.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/" />
+    <image:image>
+      <image:loc>https://nicopfr.github.io/Fauteuil/assets/bibliotheque.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://nicopfr.github.io/Fauteuil/assets/playlists.jpg</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/versions/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/versions/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/releases/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/versions/" />
   </url>
   <url>
     <loc>https://nicopfr.github.io/Fauteuil/en/releases/</loc>
+    <lastmod>2026-11-23</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/versions/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/releases/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/versions/" />

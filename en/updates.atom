@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+  <title>Fauteuil guides and releases</title>
+  <subtitle>Recent Fauteuil pages and guides for macOS</subtitle>
+  <id>https://nicopfr.github.io/Fauteuil/en/updates.atom</id>
+  <updated>2026-11-23T11:44:05+01:00</updated>
+  <link rel="self" href="https://nicopfr.github.io/Fauteuil/en/updates.atom" />
+  <link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+  <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/" />
+  <author>
+    <name>Fauteuil</name>
+  </author>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/releases/</id>
+    <title>Fauteuil releases and macOS compatibility</title>
+    <summary>Choose the right Fauteuil release for your Mac and find release notes, checksums and the current universal download.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/releases/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/</id>
+    <title>Where Fauteuil stores videos and downloads on Mac</title>
+    <summary>Find Fauteuil’s local videos, offline copies, artwork and settings, and see which files are removed after playback.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/</id>
+    <title>Connect YouTube and your Google account to Fauteuil</title>
+    <summary>Set up YouTube Data API and a desktop OAuth client to view your own YouTube subscriptions and playlists in Fauteuil on Mac.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/</id>
+    <title>Watch YouTube playlists offline on Mac | Fauteuil</title>
+    <summary>Import a public YouTube playlist into Fauteuil, save selected videos and check they are ready for offline viewing on Mac.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/</id>
+    <title>Organize local movies and TV episodes on Mac | Fauteuil</title>
+    <summary>Add existing video files to Fauteuil, organize episodes into seasons and resume playback without duplicating your media.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/</id>
+    <title>Install and update Fauteuil on Mac</title>
+    <summary>Choose the right macOS release, install Fauteuil and its runtime, then test playback with a local video.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/" />
+  </entry>
+</feed>

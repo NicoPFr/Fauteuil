@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="fr">
+  <title>Guides et versions de Fauteuil</title>
+  <subtitle>Dernières pages et guides de Fauteuil pour macOS</subtitle>
+  <id>https://nicopfr.github.io/Fauteuil/actualites.atom</id>
+  <updated>2026-11-23T11:44:05+01:00</updated>
+  <link rel="self" href="https://nicopfr.github.io/Fauteuil/actualites.atom" />
+  <link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+  <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/" />
+  <author>
+    <name>Fauteuil</name>
+  </author>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/versions/</id>
+    <title>Versions de Fauteuil et compatibilité macOS</title>
+    <summary>Compare les versions de Fauteuil pour Mac, repère celle qui correspond à ton macOS et retrouve les notes de mise à jour.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/versions/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/</id>
+    <title>Où Fauteuil stocke les vidéos et les téléchargements sur Mac</title>
+    <summary>Retrouve les vidéos personnelles, téléchargements hors ligne et jaquettes de Fauteuil. Comprends ce qui est nettoyé après visionnage.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/</id>
+    <title>Connecter YouTube et son compte Google à Fauteuil</title>
+    <summary>Configure YouTube Data API et le client OAuth de Fauteuil pour retrouver les abonnements et playlists de ton compte sur Mac.</summary>
+    <updated>2026-11-23T11:44:05+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/</id>
+    <title>Regarder des playlists YouTube hors ligne sur Mac | Fauteuil</title>
+    <summary>Ajoute une playlist YouTube dans Fauteuil, garde une sélection hors ligne et vérifie qu’elle est prête à regarder.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/</id>
+    <title>Organiser ses films et séries sur Mac avec Fauteuil</title>
+    <summary>Ajoute tes vidéos locales sans duplication, range tes épisodes par saison et retrouve la dernière position de lecture.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/" />
+  </entry>
+  <entry>
+    <id>https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/</id>
+    <title>Installer et mettre à jour Fauteuil sur Mac</title>
+    <summary>Choisis la bonne version macOS, installe Fauteuil et ses outils, puis vérifie que ta médiathèque locale s’ouvre.</summary>
+    <updated>2026-11-23T11:10:39+01:00</updated>
+    <link rel="alternate" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/" />
+  </entry>
+</feed>
