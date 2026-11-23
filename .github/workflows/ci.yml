@@ -12,6 +12,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
+          python-version: '3.9'
+      - name: Check the download worker on Python 3.9
+        run: PYTHONPATH=app python3 -B -m unittest discover -s tests/python -p test_download_worker.py
+      - uses: actions/setup-python@v5
+        with:
           python-version: '3.13'
       - uses: actions/setup-node@v4
         with:

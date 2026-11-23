@@ -191,6 +191,15 @@ def prepare_download(video_id, keep=False, cancel=None, progressive=False):
             "ok": False,
             "error": "Le téléchargement est momentanément indisponible. Réessaie plus tard.",
         }
+    missing_tools = [tool for tool in ("yt-dlp", "ffmpeg") if not shutil.which(tool)]
+    if missing_tools:
+        return {
+            "ok": False,
+            "error": (
+                "Outils de téléchargement manquants (" + ", ".join(missing_tools)
+                + "). Installe-les avec Homebrew, puis relance Fauteuil."
+            ),
+        }
     if shutil.disk_usage(config.DATA).free < MIN_DOWNLOAD_FREE_BYTES:
         return {
             "ok": False,

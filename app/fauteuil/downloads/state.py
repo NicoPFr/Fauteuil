@@ -1,5 +1,7 @@
 """Volatile job registry, owned by the download worker process."""
 
+from __future__ import annotations
+
 from _thread import LockType
 from dataclasses import dataclass, field
 from pathlib import Path
