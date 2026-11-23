@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install and update Fauteuil on Mac</title>
+  <meta name="description" content="Choose the right macOS release, install Fauteuil and its runtime, then test playback with a local video.">
+  <link rel="canonical" href="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/">
+  <link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/">
+  <link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/">
+  <link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/">
+  <link rel="icon" href="../../../assets/fauteuil.png" type="image/png">
+  <link rel="stylesheet" href="../../../assets/site.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Install and update Fauteuil on Mac">
+  <meta property="og:description" content="Choose the right macOS release, install Fauteuil and its runtime, then test playback with a local video.">
+  <meta property="og:url" content="https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://nicopfr.github.io/Fauteuil/assets/bibliotheque.jpg">
+  <meta property="og:image:width" content="1265">
+  <meta property="og:image:height" content="712">
+  <meta property="og:image:alt" content="A demonstration video library in Fauteuil">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Fauteuil",
+      "item": "https://nicopfr.github.io/Fauteuil/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Install",
+      "item": "https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header><nav class="wrap" aria-label="Main navigation">
+    <a class="brand" href="../../"><img src="../../../assets/fauteuil.png" width="36" height="36" alt=""> Fauteuil</a>
+    <div class="links"><a href="https://github.com/NicoPFr/Fauteuil">GitHub source</a><a href="../../../guides/installer-sur-mac/" lang="fr" hreflang="fr">Français</a></div>
+  </nav></header>
+  <main class="wrap guide">
+    <div class="hero"><h1>Install and update Fauteuil on Mac</h1><p>Choose the right macOS release, install Fauteuil and its runtime, then test playback with a local video.</p></div>
+    <article class="steps">
+<h2>1. Choose a release for your Mac</h2>
+<p>Check your macOS version under <strong>Apple menu → About This Mac</strong>. The current universal ZIP supports macOS 15 and later on Apple Silicon and Intel. On macOS 13 or 14, use <a href="https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1">Fauteuil 1.3.1 and its setup instructions</a>. That version requires manual dependency installation.</p>
+<p><a class="download" href="https://github.com/NicoPFr/Fauteuil/releases/latest/download/Fauteuil-macOS-universal.zip">Download Fauteuil for macOS 15 and later</a></p>
+<h2>2. Open or update the app</h2>
+<p>Unzip the archive, open <strong>Fauteuil.app</strong> and choose <strong>Installer dans Applications</strong>. Quit any running copy before updating. When an older copy is installed, confirm the in-place update. Fauteuil offers to open an existing installation that is at least as recent.</p>
+<p>The app is ad hoc signed. If macOS asks for confirmation, see <a href="https://support.apple.com/en-us/102445">Apple’s instructions for opening apps safely</a>.</p>
+<h2>3. Set up the runtime</h2>
+<p>When prompted, choose <strong>Installer les outils</strong>. The app downloads and verifies its runtime from GitHub. Allow around 145 MB of downloads and up to 300 MB of storage before adding videos. If setup fails, check access to GitHub and free disk space, then reopen Fauteuil. <a href="https://github.com/NicoPFr/Fauteuil/blob/main/docs/RUNTIME.md">Runtime details in French</a>.</p>
+<h2>4. Test a local video</h2>
+<p>Go to <strong>Mes vidéos → Ajouter des vidéos</strong> and select an MP4 you can play on your Mac. This test needs no Google account. For subscriptions or personal playlists, see <a href="https://github.com/NicoPFr/Fauteuil/blob/main/docs/CONFIGURER_GOOGLE.md">Google setup in French</a>.</p>
+    </article>
+    <section class="related" aria-labelledby="related">
+      <h2 id="related">Related guides</h2>
+      <ul>
+      <li><a href="../youtube-playlists-offline-on-mac/">Watch YouTube playlists offline on Mac</a></li>
+      <li><a href="../organize-local-videos-on-mac/">Organize local movies and TV episodes on Mac</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="wrap"><ul>
+    <li><a href="https://github.com/NicoPFr/Fauteuil/releases/latest">Latest release</a></li>
+    <li><a href="../../../sitemap.xml">Sitemap</a></li>
+  </ul></div></footer>
+</body>
+</html>

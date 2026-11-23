@@ -31,3 +31,14 @@ section { padding-block: clamp(32px, 7vw, 70px) 0; }
 footer { margin-top: 4rem; padding-block: 1.4rem; border-top: 1px solid var(--border); }
 footer ul { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; padding: 0; margin: 0; list-style: none; }
 @media (max-width: 720px) { .split { grid-template-columns: 1fr; } }
+
+.guide .hero h1 { max-width: 24ch; font-size: clamp(2.1rem, 5.3vw, 3.9rem); }
+.steps { max-width: 74ch; }
+.steps h2 { margin-top: 2rem; }
+.steps h2:first-child { margin-top: 0; }
+.steps li + li, .related li + li { margin-top: .4rem; }
+.steps ol { color: var(--muted); padding-inline-start: 1.4rem; }
+.steps pre { overflow: auto; padding: .8rem 1rem; border-radius: .5rem; background: var(--surface); border: 1px solid var(--border); }
+.steps :not(pre) > code { overflow-wrap: anywhere; color: #fce3dc; }
+.related { border-top: 1px solid var(--border); margin-top: 2.35rem; padding-top: 1.5rem; }
+.related ul { padding-inline-start: 1.3rem; }
