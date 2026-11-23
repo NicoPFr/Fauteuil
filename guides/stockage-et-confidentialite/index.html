@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Où Fauteuil stocke les vidéos et les téléchargements sur Mac</title>
+  <meta name="description" content="Retrouve les vidéos personnelles, téléchargements hors ligne et jaquettes de Fauteuil. Comprends ce qui est nettoyé après visionnage.">
+  <link rel="canonical" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/">
+  <link rel="alternate" hreflang="fr" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/">
+  <link rel="alternate" hreflang="en" href="https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/">
+  <link rel="alternate" hreflang="x-default" href="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/">
+
+  <link rel="icon" href="https://nicopfr.github.io/Fauteuil/assets/fauteuil.png" type="image/png">
+  <link rel="stylesheet" href="https://nicopfr.github.io/Fauteuil/assets/site.css">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Où Fauteuil stocke les vidéos et les téléchargements sur Mac">
+  <meta property="og:description" content="Retrouve les vidéos personnelles, téléchargements hors ligne et jaquettes de Fauteuil. Comprends ce qui est nettoyé après visionnage.">
+  <meta property="og:url" content="https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/">
+  <meta property="og:image" content="https://nicopfr.github.io/Fauteuil/assets/bibliotheque.jpg">
+  <meta property="og:image:width" content="1265">
+  <meta property="og:image:height" content="712">
+  <meta property="og:image:alt" content="Fauteuil présentant une médiathèque fictive">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Fauteuil",
+      "item": "https://nicopfr.github.io/Fauteuil/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Stockage et confidentialité",
+      "item": "https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/"
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+  <header><nav class="wrap" aria-label="Navigation principale">
+    <a class="brand" href="https://nicopfr.github.io/Fauteuil/"><img src="https://nicopfr.github.io/Fauteuil/assets/fauteuil.png" width="36" height="36" alt=""> Fauteuil</a>
+    <div class="links"><a href="https://github.com/NicoPFr/Fauteuil">GitHub</a><a href="https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/" lang="en" hreflang="en">English</a></div>
+  </nav></header>
+  <main class="wrap guide">
+    <div class="hero"><h1>Où Fauteuil stocke les vidéos et les téléchargements sur Mac</h1><p>Retrouve les vidéos personnelles, téléchargements hors ligne et jaquettes de Fauteuil. Comprends ce qui est nettoyé après visionnage.</p></div>
+    <article class="steps">
+<h2>Retrouver les fichiers dans le Finder</h2>
+<p>Fauteuil référence les fichiers que tu ajoutes depuis <strong>Mes vidéos</strong>. Pour ouvrir un dossier de la liste dans le Finder, utilise <strong>Aller → Aller au dossier…</strong> et colle le chemin.</p>
+<dl class="storage">
+  <dt><code>~/Movies/Youtube/Movies</code></dt><dd>Dossier de découverte automatique de tes vidéos personnelles. Les vidéos importées depuis un autre dossier restent là où tu les as ajoutées.</dd>
+  <dt><code>~/Movies/Youtube/Cinema/À regarder</code></dt><dd>Copies téléchargées par Fauteuil, temporaires ou conservées hors ligne.</dd>
+  <dt><code>~/Movies/Youtube/Cinema/jaquettes</code></dt><dd>Jaquettes générées pour la bibliothèque.</dd>
+  <dt><code>~/Movies/Youtube/Cinema/catalogue.sqlite3</code></dt><dd>Catalogue local, profils, progression et historique.</dd>
+  <dt><code>~/Library/Application Support/Fauteuil</code></dt><dd>Outils installés au premier démarrage, dans ton dossier utilisateur.</dd>
+</dl>
+<h2>Libérer de l’espace sans toucher aux originaux</h2>
+<p>Sur la fiche d’une vidéo téléchargée, utilise <strong>Retirer le téléchargement</strong> pour supprimer la copie gérée. Fauteuil peut marquer une lecture comme terminée quand tu arrives au bout ou qu’il reste moins de 30 secondes. Le nettoyage automatique s’applique aux copies temporaires. Tes fichiers personnels et les copies marquées <strong>Garder hors ligne</strong> restent protégés par ce réglage.</p>
+<h2>Connexion et données personnelles</h2>
+<p>La lecture des fichiers locaux fonctionne sans compte Google. Si tu connectes Google, le secret client et le jeton de renouvellement sont stockés dans le Trousseau macOS. Fauteuil a besoin d’Internet pour actualiser les playlists YouTube ou récupérer une vidéo qui n’est pas encore disponible sur ton disque.</p>
+    </article>
+    <section class="related" aria-labelledby="related">
+      <h2 id="related">À lire aussi</h2>
+      <ul>
+      <li><a href="https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/">Connecter YouTube et son compte Google à Fauteuil</a></li>
+      <li><a href="https://nicopfr.github.io/Fauteuil/versions/">Versions de Fauteuil et compatibilité macOS</a></li>
+        <li><a href="https://nicopfr.github.io/Fauteuil/#guides">Tous les guides Fauteuil</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer><div class="wrap"><ul>
+    <li><a href="https://github.com/NicoPFr/Fauteuil/releases/latest">Dernier téléchargement</a></li>
+    <li><a href="https://nicopfr.github.io/Fauteuil/sitemap.xml">Plan du site</a></li>
+  </ul></div></footer>
+</body>
+</html>

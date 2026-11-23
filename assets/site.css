@@ -42,3 +42,10 @@ footer ul { display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; padding: 0; margi
 .steps :not(pre) > code { overflow-wrap: anywhere; color: #fce3dc; }
 .related { border-top: 1px solid var(--border); margin-top: 2.35rem; padding-top: 1.5rem; }
 .related ul { padding-inline-start: 1.3rem; }
+
+.storage { margin: 1rem 0; }
+.storage dt { font-weight: 720; }
+.storage dd { color: var(--muted); margin: .25rem 0 .9rem; }
+.release-list { padding-inline-start: 1.4rem; }
+.release-list time { color: var(--muted); margin-inline-start: .45rem; font-size: .88rem; }
+.release-list p { margin: .2rem 0 .8rem; }

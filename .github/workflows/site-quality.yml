@@ -1,0 +1,15 @@
+name: Fauteuil site quality
+on:
+  push:
+    branches: [gh-pages]
+  pull_request:
+    branches: [gh-pages]
+permissions:
+  contents: read
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check guides, metadata, navigation and asset size
+        run: python3 .github/scripts/check_site.py
