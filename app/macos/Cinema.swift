@@ -21,14 +21,119 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
     private let importToken = UUID().uuidString + UUID().uuidString
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        let files = FileManager.default
+        let placement: ApplicationInstallation?
+        if let identifier = Bundle.main.bundleIdentifier,
+           let userDirectory = files.urls(for: .applicationDirectory, in: .userDomainMask).first,
+           let systemDirectory = files.urls(for: .applicationDirectory, in: .localDomainMask).first {
+            placement = ApplicationInstallation(source: Bundle.main.bundleURL, userApplications: userDirectory,
+                                                systemApplications: systemDirectory, identifier: identifier)
+        } else {
+            placement = nil
+        }
         guard acquireInstanceLock() else {
-            if let identifier = Bundle.main.bundleIdentifier {
-                NSRunningApplication.runningApplications(withBundleIdentifier: identifier)
-                    .first { $0.processIdentifier != getpid() }?.activate(options: [.activateIgnoringOtherApps])
+            if let placement, !placement.sourceIsInApplications {
+                let notice = NSAlert()
+                notice.messageText = "Fauteuil est déjà ouvert"
+                notice.informativeText = "Pour installer cette copie, quitte d’abord Fauteuil, puis ouvre à nouveau cette application."
+                notice.addButton(withTitle: "Revenir à Fauteuil")
+                notice.runModal()
             }
+            activateRunningFauteuil()
             NSApp.terminate(nil)
             return
         }
+        if let placement, !placement.sourceIsInApplications, offerInstallation(placement) { return }
+        prepareApplication()
+    }
+
+    private func offerInstallation(_ placement: ApplicationInstallation) -> Bool {
+        guard let incoming = placement.application(at: placement.source) else { return false }
+        let alert = NSAlert()
+        let registered = NSWorkspace.shared.urlsForApplications(withBundleIdentifier: placement.identifier)
+        let installed = placement.installed(registered: registered)
+        if let installed, incoming.compare(to: installed) != .orderedDescending {
+            alert.messageText = "Fauteuil est déjà installé"
+            alert.informativeText = "La version \(installed.version) est disponible dans \(installed.url.deletingLastPathComponent().path)."
+            alert.addButton(withTitle: "Ouvrir la version installée")
+            alert.addButton(withTitle: "Quitter")
+            if alert.runModal() == .alertFirstButtonReturn {
+                reopenApplication(at: installed.url)
+            } else {
+                NSApp.terminate(nil)
+            }
+            return true
+        }
+
+        if let installed {
+            alert.messageText = "Mettre à jour Fauteuil ?"
+            alert.informativeText = "Remplacer la version \(installed.version) par la version \(incoming.version) dans \(installed.url.deletingLastPathComponent().path) ? Tes vidéos, réglages et outils sont conservés."
+            alert.addButton(withTitle: "Mettre à jour")
+            alert.addButton(withTitle: "Ouvrir la version installée")
+            alert.addButton(withTitle: "Continuer sans installer")
+        } else {
+            alert.messageText = "Installer Fauteuil dans Applications ?"
+            alert.informativeText = "Fauteuil sera installé dans le dossier Applications de ton compte (~/Applications) et s’ouvrira depuis ce dossier."
+            alert.addButton(withTitle: "Installer dans Applications")
+            alert.addButton(withTitle: "Continuer sans installer")
+        }
+        let response = alert.runModal()
+        if response == .alertSecondButtonReturn, let installed {
+            reopenApplication(at: installed.url)
+            return true
+        }
+        guard response == .alertFirstButtonReturn else { return false }
+        do {
+            reopenApplication(at: try placement.install(replacing: installed))
+            return true
+        } catch {
+            let failure = NSAlert()
+            failure.alertStyle = .warning
+            failure.messageText = "Installation dans Applications impossible"
+            failure.informativeText = "Vérifie que le dossier Applications est accessible et que l’emplacement est disponible. Tu peux continuer depuis cette copie."
+            failure.addButton(withTitle: "Continuer sans installer")
+            if let installed {
+                failure.addButton(withTitle: "Ouvrir la version installée")
+                if failure.runModal() == .alertSecondButtonReturn {
+                    reopenApplication(at: installed.url)
+                    return true
+                }
+            } else {
+                failure.runModal()
+            }
+            return false
+        }
+    }
+
+    private func reopenApplication(at url: URL) {
+        // The copy needs the same lock on startup. Release it before asking Launch Services to open it.
+        close(instanceLock)
+        instanceLock = -1
+        let config = NSWorkspace.OpenConfiguration()
+        config.createsNewApplicationInstance = true
+        config.allowsRunningApplicationSubstitution = false
+        NSWorkspace.shared.openApplication(at: url, configuration: config) { _, error in
+            Task { @MainActor in
+                if error != nil {
+                    let alert = NSAlert()
+                    alert.alertStyle = .warning
+                    alert.messageText = "Fauteuil n’a pas pu se rouvrir"
+                    alert.informativeText = "Ouvre Fauteuil depuis \(url.deletingLastPathComponent().path) dans le Finder."
+                    alert.runModal()
+                }
+                NSApp.terminate(nil)
+            }
+        }
+    }
+
+    private func activateRunningFauteuil() {
+        if let identifier = Bundle.main.bundleIdentifier {
+            NSRunningApplication.runningApplications(withBundleIdentifier: identifier)
+                .first { $0.processIdentifier != getpid() }?.activate(options: [])
+        }
+    }
+
+    private func prepareApplication() {
         guard let resources = Bundle.main.resourceURL,
               let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
             showSetupFailure("Fauteuil ne trouve pas son dossier de travail.")

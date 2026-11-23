@@ -21,8 +21,9 @@
 ## Installation
 
 1. Télécharge l’archive universelle dans les [releases GitHub](https://github.com/NicoPFr/Fauteuil/releases/latest), décompresse-la et ouvre **Fauteuil.app**. La version 1.4 cible macOS 15 ou ultérieur, sur Apple Silicon et Intel. Pour macOS 13 ou 14, utilise la [1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1).
-2. Au premier lancement, clique sur **Installer les outils**. Fauteuil télécharge et vérifie ses dépendances dans ton dossier utilisateur. Prévois une connexion à GitHub et environ 145 Mo de téléchargement. Aucun passage par Homebrew ou le Terminal.
-3. Dans **Mes vidéos**, utilise **Ajouter des vidéos**, ou range tes fichiers dans `~/Movies/Youtube/Movies`. La lecture des fichiers locaux fonctionne hors connexion après la préparation et sans compte Google.
+2. Choisis **Installer dans Applications** pour installer Fauteuil dans `~/Applications`. Si Fauteuil est déjà présent dans tes Applications ou celles du Mac, tu peux ouvrir cette version ou confirmer sa mise à jour sur place. Quitte Fauteuil s’il est déjà ouvert avant de lancer la nouvelle copie. La mise à jour conserve les vidéos, les réglages et les outils.
+3. Clique sur **Installer les outils** si Fauteuil te le propose. Fauteuil télécharge et vérifie ses dépendances dans ton dossier utilisateur. Prévois une connexion à GitHub et environ 145 Mo de téléchargement. Aucun passage par Homebrew ou le Terminal.
+4. Dans **Mes vidéos**, utilise **Ajouter des vidéos**, ou range tes fichiers dans `~/Movies/Youtube/Movies`. La lecture des fichiers locaux fonctionne hors connexion après la préparation et sans compte Google.
 4. Pour les abonnements et les playlists personnelles, suis le [guide Google](docs/CONFIGURER_GOOGLE.md). Chaque installation utilise son propre client OAuth.
 
 La release est signée ad hoc. macOS peut demander une confirmation dans **Réglages Système → Confidentialité et sécurité** au premier lancement, car Apple n’a pas notarié ce paquet. [Documentation Apple](https://support.apple.com/fr-fr/102445) · [Détails des outils téléchargés](docs/RUNTIME.md).

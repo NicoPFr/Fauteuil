@@ -30,6 +30,8 @@ jobs:
         run: make test
       - name: Build universal app
         run: make universal
+      - name: Test installation and replacement
+        run: make test-install
       - name: Package app
         run: ditto -c -k --sequesterRsrc --keepParent build/Fauteuil.app build/Fauteuil-macOS-universal.zip
       - uses: actions/upload-artifact@v4
