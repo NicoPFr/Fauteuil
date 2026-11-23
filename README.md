@@ -1,39 +1,52 @@
-<p align="center"><img src="docs/assets/icon.png" width="120" alt="Fauteuil, icône de fauteuil rouge"></p>
+<p align="center"><img src="docs/assets/icon.png" width="112" alt="Icône de Fauteuil, un fauteuil rouge de cinéma"></p>
 
-# Fauteuil
+# Fauteuil — Médiathèque et lecteur vidéo pour macOS
 
-**Ta médiathèque personnelle sur Mac, prête pour le hors ligne.** Retrouve tes vidéos locales et tes playlists YouTube dans une interface pensée pour regarder, reprendre et enchaîner tes vidéos.
+Fauteuil rassemble **tes vidéos locales et tes playlists YouTube** dans une médiathèque personnelle sur Mac. Regarde tes vidéos dans l’application, reprends au dernier arrêt et garde une sélection pour le hors ligne.
 
-[Download for macOS](https://github.com/NicoPFr/Fauteuil/releases/latest) · [English](docs/README.en.md) · [Configurer Google](docs/CONFIGURER_GOOGLE.md) · [Kit de présentation](docs/press/README.md)
+[**Télécharger Fauteuil pour macOS**](https://github.com/NicoPFr/Fauteuil/releases/latest) · [Guide Google](docs/CONFIGURER_GOOGLE.md) · [English](docs/README.en.md)
 
-![Accueil de Fauteuil avec une bibliothèque de démonstration](docs/assets/home.jpg)
+> **macOS 15 ou ultérieur**, Apple Silicon et Intel. La lecture de fichiers locaux est disponible sans compte Google.
 
-## Ce que tu peux faire
+![Accueil de la médiathèque vidéo Fauteuil sur macOS, avec des séries et des films fictifs](docs/assets/home.jpg)
 
-- Ajouter des vidéos locales sans les dupliquer et organiser les séries par saison et épisode.
-- Retrouver tes abonnements et playlists YouTube avec ton compte Google, ou ajouter une playlist par son lien. Les résultats écartent les Shorts et, par précaution, les vidéos de trois minutes ou moins.
-- Lire dans l’app, reprendre à la dernière position et enchaîner les épisodes à ton rythme.
-- Commencer à regarder pendant le téléchargement quand le format le permet. Fauteuil prépare automatiquement une copie temporaire si la lecture progressive échoue.
-- Garder certains titres hors ligne, individuellement ou par sélection. Les copies temporaires se nettoient après visionnage. Tes fichiers personnels restent à leur emplacement.
+## Tes vidéos, de la bibliothèque à la lecture
 
-![Une playlist ordonnée, avec les épisodes disponibles hors ligne](docs/assets/playlists.jpg)
+| Tu veux… | Dans Fauteuil |
+| --- | --- |
+| **Organiser ta médiathèque** | Ajoute tes films et épisodes depuis leur emplacement. Fauteuil regroupe les séries par saison et ordonne les épisodes. |
+| **Suivre une playlist YouTube** | Colle le lien d’une playlist publique. Configure Google si tu veux retrouver tes abonnements et tes playlists personnelles. Les Shorts et les vidéos de trois minutes ou moins sont écartés des résultats. |
+| **Regarder tout de suite** | Quand le format le permet, la lecture commence pendant le téléchargement. En cas d’échec, Fauteuil prépare une copie temporaire. |
+| **Reprendre ou enchaîner** | Reprends à la dernière position ou passe à l’épisode suivant depuis le lecteur intégré. |
+| **Préparer une sélection hors ligne** | Conserve des titres ou une sélection. Fauteuil nettoie les copies temporaires après visionnage et laisse les fichiers personnels à leur emplacement. |
 
-## Installation
+![Playlist dans Fauteuil avec épisodes ordonnés et état des copies hors ligne](docs/assets/playlists.jpg)
 
-1. Télécharge l’archive universelle dans les [releases GitHub](https://github.com/NicoPFr/Fauteuil/releases/latest), décompresse-la et ouvre **Fauteuil.app**. La version 1.4 cible macOS 15 ou ultérieur, sur Apple Silicon et Intel. Pour macOS 13 ou 14, utilise la [1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1).
-2. Choisis **Installer dans Applications** pour installer Fauteuil dans `~/Applications`. Si Fauteuil est déjà présent dans tes Applications ou celles du Mac, tu peux ouvrir cette version ou confirmer sa mise à jour sur place. Quitte Fauteuil s’il est déjà ouvert avant de lancer la nouvelle copie. La mise à jour conserve les vidéos, les réglages et les outils.
-3. Clique sur **Installer les outils** si Fauteuil te le propose. Fauteuil télécharge et vérifie ses dépendances dans ton dossier utilisateur. Prévois une connexion à GitHub et environ 145 Mo de téléchargement. Aucun passage par Homebrew ou le Terminal.
-4. Dans **Mes vidéos**, utilise **Ajouter des vidéos**, ou range tes fichiers dans `~/Movies/Youtube/Movies`. La lecture des fichiers locaux fonctionne hors connexion après la préparation et sans compte Google.
-4. Pour les abonnements et les playlists personnelles, suis le [guide Google](docs/CONFIGURER_GOOGLE.md). Chaque installation utilise son propre client OAuth.
+*Les deux captures utilisent une bibliothèque de démonstration.*
 
-La release est signée ad hoc. macOS peut demander une confirmation dans **Réglages Système → Confidentialité et sécurité** au premier lancement, car Apple n’a pas notarié ce paquet. [Documentation Apple](https://support.apple.com/fr-fr/102445) · [Détails des outils téléchargés](docs/RUNTIME.md).
+## Installation sur Mac
 
-YouTube peut limiter la disponibilité de certains contenus et formats. Télécharge uniquement les vidéos que tu es autorisé à enregistrer.
+1. Télécharge **Fauteuil-macOS-universal.zip**, décompresse-le et ouvre **Fauteuil.app**. [Dernière release](https://github.com/NicoPFr/Fauteuil/releases/latest)
+2. Choisis **Installer dans Applications**. Si une ancienne version est déjà installée, quitte-la et confirme la mise à jour à son emplacement. Fauteuil conserve tes vidéos, réglages et outils.
+3. Choisis **Installer les outils** si l’application le propose. Fauteuil télécharge et vérifie ses dépendances automatiquement. Prévois une connexion à GitHub et environ **145 Mo** pour cette étape. [Détails des outils](docs/RUNTIME.md)
+4. Ouvre **Mes vidéos → Ajouter des vidéos**. Tu peux aussi utiliser le dossier `~/Movies/Youtube/Movies`.
 
-## Compiler et tester
+Sur **macOS 13 ou 14**, utilise la version 1.3.1 et installe ses dépendances manuellement. [Fauteuil 1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1)
 
-Avec les outils en ligne de commande Xcode et Python 3.11 ou ultérieur, lance `make build` et ouvre `build/Fauteuil.app`. Utilise `make universal` pour compiler les deux architectures et `make test` avec Node.js pour les tests locaux. `python3 scripts/demo.py` sert l’interface avec une bibliothèque fictive sur le port 8767.
+Apple n’a pas notarié la release. macOS peut demander une confirmation dans **Réglages Système → Confidentialité et sécurité** au premier lancement. [Documentation Apple](https://support.apple.com/fr-fr/102445)
 
-Fauteuil utilise Swift, AppKit et WebKit pour la fenêtre et le lecteur, puis Python et SQLite pour le catalogue local. Les préférences et métadonnées restent sur le Mac. Les jetons durables sont stockés dans le trousseau. Projet indépendant, sous [licence MIT](LICENSE).
+## Questions fréquentes
 
-Pour modifier le code, voir le [guide d’architecture](docs/ARCHITECTURE.md) et le [guide de contribution](CONTRIBUTING.md).
+**Faut-il un compte Google ?** Seulement pour synchroniser les abonnements et les playlists personnelles. La médiathèque locale et les playlists publiques ajoutées par lien sont utilisables sans compte Google. [Configuration Google](docs/CONFIGURER_GOOGLE.md)
+
+**Où restent mes vidéos et mes réglages ?** Les fichiers ajoutés restent à leur emplacement. Fauteuil conserve les copies préparées, les métadonnées et les préférences sur le Mac. Les jetons durables sont stockés dans le Trousseau. [Architecture et stockage](docs/ARCHITECTURE.md)
+
+**Tous les titres YouTube sont-ils disponibles ?** La disponibilité dépend des restrictions de la vidéo et des formats proposés par YouTube. Enregistre uniquement les contenus que tu es autorisé à télécharger.
+
+## Code et contribution
+
+L’interface utilise Swift, AppKit et WebKit. Les services locaux utilisent Python et SQLite. Avec les outils en ligne de commande Xcode et Python 3.11 ou ultérieur, `make build` produit `build/Fauteuil.app`. `make universal` produit le bundle pour les deux architectures, et `make test` utilise Node.js pour les tests Web. La commande `python3 scripts/demo.py` présente une bibliothèque fictive sur le port 8767.
+
+[Architecture](docs/ARCHITECTURE.md) · [Contribuer](CONTRIBUTING.md) · [Kit de présentation](docs/press/README.md) · [Licence MIT](LICENSE)
+
+*Fauteuil est un projet indépendant.*

@@ -14,4 +14,4 @@ Les captures présentent une bibliothèque fictive et des illustrations original
 
 **Fauteuil met tes vidéos à portée de télécommande, même hors ligne.**
 
-Une app pour Mac qui réunit tes fichiers vidéo, tes abonnements et tes playlists YouTube. Reprends une lecture, passe à l’épisode suivant ou garde une sélection pour le prochain trajet. Le code et la première version publique sont disponibles sur [GitHub](https://github.com/NicoPFr/Fauteuil).
+Une app pour Mac qui réunit tes fichiers vidéo, tes abonnements et tes playlists YouTube. Reprends une lecture, passe à l’épisode suivant ou garde une sélection pour le prochain trajet. La version actuelle est disponible pour macOS, sur Apple Silicon et Intel. [Télécharger Fauteuil](https://github.com/NicoPFr/Fauteuil/releases/latest)
