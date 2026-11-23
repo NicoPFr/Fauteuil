@@ -31,3 +31,5 @@ points or resource layout.
 The public website is served from the `gh-pages` branch. When adding or moving a
 guide, update the home-page links, the canonical and language links on both
 translations, and the [sitemap](https://nicopfr.github.io/Fauteuil/sitemap.xml).
+On that branch, run `python3 .github/scripts/check_site.py` before pushing.
+The same check runs in GitHub Actions. Use `--live` to verify the deployed site.

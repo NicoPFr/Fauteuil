@@ -47,6 +47,8 @@ Apple n’a pas notarié la release. macOS peut demander une confirmation dans *
 
 **Tous les titres YouTube sont-ils disponibles ?** La disponibilité dépend des restrictions de la vidéo et des formats proposés par YouTube. Enregistre uniquement les contenus que tu es autorisé à télécharger.
 
+[Configurer le compte YouTube et Google](https://nicopfr.github.io/Fauteuil/guides/connecter-youtube-a-fauteuil/) · [Retrouver les fichiers de Fauteuil sur Mac](https://nicopfr.github.io/Fauteuil/guides/stockage-et-confidentialite/) · [Comparer les versions macOS](https://nicopfr.github.io/Fauteuil/versions/)
+
 ## Code et contribution
 
 L’interface utilise Swift, AppKit et WebKit. Les services locaux utilisent Python et SQLite. Avec les outils en ligne de commande Xcode et Python 3.11 ou ultérieur, `make build` produit `build/Fauteuil.app`. `make universal` produit le bundle pour les deux architectures, et `make test` utilise Node.js pour les tests Web. La commande `python3 scripts/demo.py` présente une bibliothèque fictive sur le port 8767.

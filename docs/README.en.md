@@ -27,4 +27,6 @@ Releases are ad hoc signed. macOS may ask you to confirm opening the app because
 
 Local playback needs no account. YouTube decides which videos and formats are available. Save only content you have permission to download. [Google configuration guide in French](CONFIGURER_GOOGLE.md)
 
+[Connect a YouTube account](https://nicopfr.github.io/Fauteuil/en/guides/connect-youtube-to-fauteuil/) · [Find downloads and settings on Mac](https://nicopfr.github.io/Fauteuil/en/guides/video-storage-and-privacy/) · [Compare macOS releases](https://nicopfr.github.io/Fauteuil/en/releases/)
+
 [Architecture](ARCHITECTURE.md) · [Contributing](../CONTRIBUTING.md) · [MIT license](../LICENSE)
