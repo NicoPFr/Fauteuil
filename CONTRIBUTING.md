@@ -33,3 +33,5 @@ guide, update the home-page links, the canonical and language links on both
 translations, and the [sitemap](https://nicopfr.github.io/Fauteuil/sitemap.xml).
 On that branch, run `python3 .github/scripts/check_site.py` before pushing.
 The same check runs in GitHub Actions. Use `--live` to verify the deployed site.
+After changing guide content, run `python3 -B .github/scripts/update_discovery.py`
+to refresh the sitemap dates and Atom feeds before the check.
