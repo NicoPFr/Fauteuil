@@ -24,7 +24,11 @@ Fauteuil rassemble **tes vidéos locales et tes playlists YouTube** dans une mé
 
 *Les deux captures utilisent une bibliothèque de démonstration.*
 
+[Organiser ses films et séries sur Mac](https://nicopfr.github.io/Fauteuil/guides/organiser-videos-locales-sur-mac/) · [Regarder des playlists YouTube hors ligne sur Mac](https://nicopfr.github.io/Fauteuil/guides/playlists-youtube-hors-ligne-sur-mac/)
+
 ## Installation sur Mac
+
+Le guide détaille le choix de la version macOS, la mise à jour et le premier test de lecture. [Installer et mettre à jour Fauteuil](https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/)
 
 1. Télécharge **Fauteuil-macOS-universal.zip**, décompresse-le et ouvre **Fauteuil.app**. [Dernière release](https://github.com/NicoPFr/Fauteuil/releases/latest)
 2. Choisis **Installer dans Applications**. Si une ancienne version est déjà installée, quitte-la et confirme la mise à jour à son emplacement. Fauteuil conserve tes vidéos, réglages et outils.

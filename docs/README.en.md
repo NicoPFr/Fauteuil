@@ -13,7 +13,11 @@ Fauteuil brings local movies, TV episodes and YouTube playlists into a personal 
 - Start watching supported videos during download. Fauteuil falls back to a temporary local copy if progressive playback fails.
 - Resume playback, continue to the next episode and choose which titles to keep offline.
 
+[Organize local movies on Mac](https://nicopfr.github.io/Fauteuil/en/guides/organize-local-videos-on-mac/) · [Watch YouTube playlists offline on Mac](https://nicopfr.github.io/Fauteuil/en/guides/youtube-playlists-offline-on-mac/)
+
 ## Install on a Mac
+
+[Step-by-step installation and updates](https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/)
 
 The universal build supports **macOS 15 or later**, on Apple Silicon and Intel. Unzip the download, open **Fauteuil.app**, then choose **Installer dans Applications**. If a copy is already installed, quit it first and confirm the in-place update when prompted.
 
