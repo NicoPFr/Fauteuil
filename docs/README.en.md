@@ -19,7 +19,7 @@ Fauteuil brings local movies, TV episodes and YouTube playlists into a personal 
 
 [Step-by-step installation and updates](https://nicopfr.github.io/Fauteuil/en/guides/install-on-mac/)
 
-The universal build supports **macOS 15 or later**, on Apple Silicon and Intel. Unzip the download, open **Fauteuil.app**, then choose **Installer dans Applications**. If a copy is already installed, quit it first and confirm the in-place update when prompted.
+The universal build supports **macOS 15 or later**, on Apple Silicon and Intel. Unzip the download, open **Fauteuil.app**, then choose **Installer dans Applications**. If a copy is already installed, quit it first and confirm the in-place update when prompted. Setup continues in the open window after the copy finishes. For later launches, open Fauteuil from Applications.
 
 If you see **Installer les outils**, Fauteuil downloads and verifies its runtime. Initial setup requires an internet connection and around **145 MB** of downloads. You can start without Homebrew or Terminal. The application interface is in French. For macOS 13 or 14, use [Fauteuil 1.3.1](https://github.com/NicoPFr/Fauteuil/releases/tag/v1.3.1), which requires manual dependency installation.
 

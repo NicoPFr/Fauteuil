@@ -31,8 +31,16 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
         } else {
             placement = nil
         }
+        let installed: [ApplicationInstallation.Application]
+        if let placement, !placement.sourceIsInApplications {
+            let registered = NSWorkspace.shared.urlsForApplications(withBundleIdentifier: placement.identifier)
+            installed = placement.installedApplications(registered: registered)
+        } else {
+            installed = []
+        }
+        let offerPlacement = placement?.needsInstallationPrompt(installed: installed) ?? false
         guard acquireInstanceLock() else {
-            if let placement, !placement.sourceIsInApplications {
+            if offerPlacement {
                 let notice = NSAlert()
                 notice.messageText = "Fauteuil est déjà ouvert"
                 notice.informativeText = "Pour installer cette copie, quitte d’abord Fauteuil, puis ouvre à nouveau cette application."
@@ -43,15 +51,15 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
             NSApp.terminate(nil)
             return
         }
-        if let placement, !placement.sourceIsInApplications, offerInstallation(placement) { return }
+        if offerPlacement, let placement, offerInstallation(placement, installed: installed.first) { return }
         prepareApplication()
     }
 
-    private func offerInstallation(_ placement: ApplicationInstallation) -> Bool {
+    private func offerInstallation(
+        _ placement: ApplicationInstallation, installed: ApplicationInstallation.Application?
+    ) -> Bool {
         guard let incoming = placement.application(at: placement.source) else { return false }
         let alert = NSAlert()
-        let registered = NSWorkspace.shared.urlsForApplications(withBundleIdentifier: placement.identifier)
-        let installed = placement.installed(registered: registered)
         if let installed, incoming.compare(to: installed) != .orderedDescending {
             alert.messageText = "Fauteuil est déjà installé"
             alert.informativeText = "La version \(installed.version) est disponible dans \(installed.url.deletingLastPathComponent().path)."
@@ -73,7 +81,7 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
             alert.addButton(withTitle: "Continuer sans installer")
         } else {
             alert.messageText = "Installer Fauteuil dans Applications ?"
-            alert.informativeText = "Fauteuil sera installé dans le dossier Applications de ton compte (~/Applications) et s’ouvrira depuis ce dossier."
+            alert.informativeText = "Fauteuil sera installé dans le dossier Applications de ton compte (~/Applications). Tu pourras ensuite le rouvrir depuis ce dossier."
             alert.addButton(withTitle: "Installer dans Applications")
             alert.addButton(withTitle: "Continuer sans installer")
         }
@@ -84,7 +92,10 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
         }
         guard response == .alertFirstButtonReturn else { return false }
         do {
-            reopenApplication(at: try placement.install(replacing: installed))
+            let destination = try placement.install(replacing: installed)
+            // Continue startup under the existing lock. Relaunching a freshly copied
+            // app can put Gatekeeper back on the same installation path.
+            prepareApplication(resources: destination.appendingPathComponent("Contents/Resources", isDirectory: true))
             return true
         } catch {
             let failure = NSAlert()
@@ -133,8 +144,8 @@ final class CinemaApp: NSObject, NSApplicationDelegate, NSWindowDelegate, WKScri
         }
     }
 
-    private func prepareApplication() {
-        guard let resources = Bundle.main.resourceURL,
+    private func prepareApplication(resources: URL? = Bundle.main.resourceURL) {
+        guard let resources,
               let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
             showSetupFailure("Fauteuil ne trouve pas son dossier de travail.")
             return

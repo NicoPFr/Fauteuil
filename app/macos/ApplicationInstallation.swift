@@ -6,6 +6,7 @@ struct ApplicationInstallation {
         let url: URL
         let version: String
         let build: String
+        let executable: URL
         let inode: NSNumber
         let device: NSNumber
 
@@ -33,17 +34,33 @@ struct ApplicationInstallation {
         isInApplications(source)
     }
 
-    func installed(registered: [URL] = []) -> Application? {
+    func installedApplications(registered: [URL] = []) -> [Application] {
         let standard = [destination, systemApplications.appendingPathComponent("Fauteuil.app", isDirectory: true)]
         return (standard + registered.filter(isInApplications))
             .compactMap(application)
-            .max { $0.compare(to: $1) == .orderedAscending }
+            .sorted { $0.compare(to: $1) == .orderedDescending }
+    }
+
+    func needsInstallationPrompt(installed: [Application]) -> Bool {
+        guard !sourceIsInApplications, let incoming = application(at: source) else { return false }
+        // Gatekeeper may give a launched bundle a temporary URL. Identical signed copies
+        // still contain the same executable and resource seal, regardless of the path.
+        return !installed.contains { candidate in
+            incoming.compare(to: candidate) == .orderedSame &&
+            files.contentsEqual(atPath: incoming.executable.path, andPath: candidate.executable.path) &&
+            files.contentsEqual(atPath: resourceSeal(at: incoming.url), andPath: resourceSeal(at: candidate.url))
+        }
+    }
+
+    private func resourceSeal(at url: URL) -> String {
+        url.appendingPathComponent("Contents/_CodeSignature/CodeResources").path
     }
 
     private func isInApplications(_ url: URL) -> Bool {
-        let path = url.resolvingSymlinksInPath().path
+        let path = url.resolvingSymlinksInPath().standardizedFileURL.pathComponents
         return [userApplications, systemApplications].contains {
-            path.hasPrefix($0.resolvingSymlinksInPath().path + "/")
+            let root = $0.resolvingSymlinksInPath().standardizedFileURL.pathComponents
+            return path.count > root.count && path.starts(with: root)
         }
     }
 
@@ -56,8 +73,14 @@ struct ApplicationInstallation {
               let info = (try? PropertyListSerialization.propertyList(from: data, format: nil)) as? [String: Any],
               info["CFBundleIdentifier"] as? String == identifier,
               let version = info["CFBundleShortVersionString"] as? String,
-              let build = info["CFBundleVersion"] as? String else { return nil }
-        return Application(url: url, version: version, build: build, inode: inode, device: device)
+              let build = info["CFBundleVersion"] as? String,
+              let name = info["CFBundleExecutable"] as? String,
+              !name.isEmpty, !name.contains("/"), name != ".", name != ".." else { return nil }
+        return Application(
+            url: url, version: version, build: build,
+            executable: url.appendingPathComponent("Contents/MacOS").appendingPathComponent(name),
+            inode: inode, device: device
+        )
     }
 
     func install(replacing previous: Application?) throws -> URL {

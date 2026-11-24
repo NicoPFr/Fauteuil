@@ -34,7 +34,7 @@ case "${2:-$(/usr/bin/uname -m)}" in
 esac
 fetch() {
   local label="$1" url="$2" checksum="$3" output="$4" actual
-  echo "Téléchargement et vérification de $label…"
+  echo "Téléchargement et vérification de ${label}…"
   /usr/bin/curl -q --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
     --connect-timeout 15 --max-time 240 --retry 2 --max-filesize 80000000 --output "$output" "$url"
   actual="$(/usr/bin/shasum -a 256 "$output")"

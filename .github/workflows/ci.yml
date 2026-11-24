@@ -24,7 +24,7 @@ jobs:
       - name: Verify the first-run runtime installer
         run: |
           runtime="$RUNNER_TEMP/fauteuil-runtime"
-          env -i HOME="$HOME" PATH=/usr/bin:/bin /bin/bash scripts/install-runtime.sh "$runtime"
+          env -i HOME="$HOME" PATH=/usr/bin:/bin LC_ALL=fr_FR.UTF-8 /bin/bash scripts/install-runtime.sh "$runtime"
           echo "$runtime/bin" >> "$GITHUB_PATH"
       - name: Test
         run: make test

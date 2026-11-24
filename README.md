@@ -31,7 +31,7 @@ Fauteuil rassemble **tes vidéos locales et tes playlists YouTube** dans une mé
 Le guide détaille le choix de la version macOS, la mise à jour et le premier test de lecture. [Installer et mettre à jour Fauteuil](https://nicopfr.github.io/Fauteuil/guides/installer-sur-mac/)
 
 1. Télécharge **Fauteuil-macOS-universal.zip**, décompresse-le et ouvre **Fauteuil.app**. [Dernière release](https://github.com/NicoPFr/Fauteuil/releases/latest)
-2. Choisis **Installer dans Applications**. Si une ancienne version est déjà installée, quitte-la et confirme la mise à jour à son emplacement. Fauteuil conserve tes vidéos, réglages et outils.
+2. Choisis **Installer dans Applications**. Si une ancienne version est déjà installée, quitte-la et confirme la mise à jour à son emplacement. La fenêtre ouverte poursuit le démarrage après la copie. Tu peux ensuite rouvrir Fauteuil depuis Applications. Tes vidéos, réglages et outils sont conservés.
 3. Choisis **Installer les outils** si l’application le propose. Fauteuil télécharge et vérifie ses dépendances automatiquement. Prévois une connexion à GitHub et environ **145 Mo** pour cette étape. [Détails des outils](docs/RUNTIME.md)
 4. Ouvre **Mes vidéos → Ajouter des vidéos**. Tu peux aussi utiliser le dossier `~/Movies/Youtube/Movies`.
 
